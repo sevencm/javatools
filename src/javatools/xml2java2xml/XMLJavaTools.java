@@ -14,8 +14,6 @@ public class XMLJavaTools {
 	
 	/**
 	 * 将JAVA对象转为XML对象输出：注意:需使用jaXB的注解
-	 * @param t
-	 * @param context
 	 * @return
 	 * @throws JAXBException
 	 */
@@ -34,18 +32,14 @@ public class XMLJavaTools {
 	 * @param xml
 	 * @param c
 	 * @return
+	 * @throws JAXBException 
 	 */
 	@SuppressWarnings("unchecked")
-	public static <T> T xml2Java(String xml, Class<T> c) {
+	public static <T> T xml2Java(String xml, Class<T> c) throws JAXBException {
 		T t = null;
-		try {
-			JAXBContext context = JAXBContext.newInstance(c);
-			Unmarshaller unmarshaller = context.createUnmarshaller();
-			t = (T) unmarshaller.unmarshal(new StringReader(xml));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
+		JAXBContext context = JAXBContext.newInstance(c);
+		Unmarshaller unmarshaller = context.createUnmarshaller();
+		t = (T) unmarshaller.unmarshal(new StringReader(xml));
 		return t;
 	}
 	
